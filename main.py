@@ -1,47 +1,48 @@
-from flask import Flask, request, redirect, render_template
-from flask_sqlalchemy import flask_sqlalchemy
+from flask import Flask, request, redirect, render_template, flash
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app=Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:admin' # TODO finish link
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:admin@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 app.secret_key = 'gddsie934nr9f9rj23jefi'
 
 db = SQLAlchemy(app)
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120),unique=True)
-    password = db.Column(db.String(120))
-    blogs = db.relationship('Blog', backref='owner')
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     email = db.Column(db.String(120),unique=True)
+#     password = db.Column(db.String(120))
+#     blogs = db.relationship('Blog', backref='owner')
 
-    def __init__(self, email, password):
-        self.email = email
-        self.password = password
+#     def __init__(self, email, password):
+#         self.email = email
+#         self.password = password
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    datetime = db.Column(db.DateTime)
+    pub_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     title = db.Column(db.String(120))
     body = db.Column(db.Text)
 #    draft = db.Column(db.Boolean)
-#    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body) #owner)
+    def __init__(self, title, body):
         self.title = title
         self.body = body
-#        self.owner = owner
+
 
 # @app.before_request
 # def require login():
-    '''Initially created for get-it-done. Unedited.'''
+'''Initially created for get-it-done. Unedited.'''
 #     allowed_routes = ['login', 'register']
 #     if request.endpoint not in allowed_routes and 'email' not in session:
 #         return redirect('login')
 
 # @app.route('/register', methods=['POST', 'GET'])
 # def register():
-    '''Initially created for get-it-done. Unedited.'''
+'''Initially created for get-it-done. Unedited.'''
 #     if request.method == 'POST':
 #         email = request.form['email']
 #         password1 = request.form['password']
@@ -63,7 +64,7 @@ class Blog(db.Model):
 #     return render_template('register.html')
 
 # def verify(email, password1, password2):
-    '''Initially created for user sign-up. Unedited. No regex.'''
+'''Initially created for user-signup. Unedited. No regex.'''
 #     if email == "":
 #         flash('Please register with your email address', 'error')
 #         return False
@@ -89,7 +90,7 @@ class Blog(db.Model):
 #         return True
 
 # @app.route('/login', methods=['POST', 'GET'])
-    '''Initially created for get-it-done. Unedited.'''
+'''Initially created for get-it-done. Unedited.'''
 # def login():
 #     if request.method == 'POST':
 #         email = request.form['email']
@@ -105,31 +106,45 @@ class Blog(db.Model):
 #     return render_template('login.html')
 
 # @app.route('/logout')
-    '''Initially created for get-it-done. Unedited.'''
+'''Initially created for get-it-done. Unedited.'''
 # def logout():
 #     del session['email']
 #     return redirect('/')
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
 def index():
+    '''New for build-a-blog. Displays previous blog posts.'''
 
-    owner = User.query.filter_by(email=session['email']).first()
+    # owner = User.query.filter_by(email=session['email']).first()
+    blogs = Blog.query.all()
 
+    return render_template('index.html', blogs=blogs)
+
+@app.route('/newpost', methods=['POST', 'GET'])
+def newpost():
+    '''New for build-a-blog. Displays newpost.html and delivers form data to index.html'''
     if request.method == 'POST':
-        task_name = request.form['task']
+        title = request.form['blog-title']
+        body = request.form['blog-body']
 
-        new_task = request.form['task']
-        db.session.add(new_task)
+        if title == "":
+            flash('Please enter a title', 'error')
+            return render_template('newpost.html', body=body)
+        elif body == "":
+            flash("Don't forget to write your blog post!", 'error')
+            return render_template('newpost.html', title=title)
+
+        new_blog = Blog(title, body)
+        db.session.add(new_blog)
+        db.session.flush()
         db.session.commit()
+        return redirect('/')
 
-    tasks = Task.query.filter_by(completed=False, owner=owner).all()
-    completed_tasks = Task.query.filter_by(completed=True, owner=owner).all()
-
-    return render_template('index.html', title='Build-A-Blog', tasks=tasks, completed_tasks=completed_tasks)
+    return render_template('newpost.html')
 
 # @app.route('/delete-task', methods=['POST'])
 # def delete_task():
-    '''Initially created for get-it-done. Unedited.'''
+'''Initially created for get-it-done. Unedited.'''
 #     task_id = int(request.form['task-id'])
 #     task = Task.query.get(task_id)
 #     task.completed = True
