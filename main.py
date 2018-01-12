@@ -34,12 +34,14 @@ class Blog(db.Model):
 
 # @app.before_request
 # def require login():
+    '''Initially created for get-it-done. Unedited.'''
 #     allowed_routes = ['login', 'register']
 #     if request.endpoint not in allowed_routes and 'email' not in session:
 #         return redirect('login')
 
 # @app.route('/register', methods=['POST', 'GET'])
 # def register():
+    '''Initially created for get-it-done. Unedited.'''
 #     if request.method == 'POST':
 #         email = request.form['email']
 #         password1 = request.form['password']
@@ -61,6 +63,7 @@ class Blog(db.Model):
 #     return render_template('register.html')
 
 # def verify(email, password1, password2):
+    '''Initially created for user sign-up. Unedited. No regex.'''
 #     if email == "":
 #         flash('Please register with your email address', 'error')
 #         return False
@@ -86,12 +89,12 @@ class Blog(db.Model):
 #         return True
 
 # @app.route('/login', methods=['POST', 'GET'])
+    '''Initially created for get-it-done. Unedited.'''
 # def login():
 #     if request.method == 'POST':
 #         email = request.form['email']
 #         password = request.form['password']
 #         user = User.query.filter_by(email=email).first()
-
 
 #         if user and user.password == password:
 #             session['email'] = email
@@ -102,6 +105,7 @@ class Blog(db.Model):
 #     return render_template('login.html')
 
 # @app.route('/logout')
+    '''Initially created for get-it-done. Unedited.'''
 # def logout():
 #     del session['email']
 #     return redirect('/')
@@ -125,6 +129,7 @@ def index():
 
 # @app.route('/delete-task', methods=['POST'])
 # def delete_task():
+    '''Initially created for get-it-done. Unedited.'''
 #     task_id = int(request.form['task-id'])
 #     task = Task.query.get(task_id)
 #     task.completed = True
