@@ -118,7 +118,11 @@ def index():
     # owner = User.query.filter_by(email=session['email']).first()
     blogs = Blog.query.all()
 
+    if request.args:
+        return redirect('/blogpost')
+
     return render_template('index.html', blogs=blogs)
+
 
 @app.route('/newpost', methods=['POST', 'GET'])
 def newpost():
@@ -138,9 +142,20 @@ def newpost():
         db.session.add(new_blog)
         db.session.flush()
         db.session.commit()
-        return redirect('/')
+
+        num = new_blog.id
+        return redirect('/blogpost?id={0}'.format(num))
 
     return render_template('newpost.html')
+
+
+@app.route('/blogpost', methods=['POST', 'GET'])
+def blogpost():
+    '''New for build-a-blog. Displays individual blog entries as selected by blog.id.'''
+    num = request.args.get('id')
+    blog = Blog.query.filter_by(id=num).first()
+    return render_template('blogpost.html', blog=blog)
+
 
 # @app.route('/delete-task', methods=['POST'])
 # def delete_task():
