@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
     <head>
         <title>Build-A-Blog!</title>
-        <link type="text/css" rel="stylesheet" ref="/static/styles.css">
+        <link type="text/css" rel="stylesheet" href="/static/styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Sirin+Stencil" rel="stylesheet">
         <nav>
             <a href='/'>Home</a>
             <a href='/newpost'>New Post</a>
         </nav>
     </head>
-    <body>
+    <body class='bg'>
         {% with messages = get_flashed_messages(with_categories=True) %}
             <ul> 
                 {% for category,message in messages %}

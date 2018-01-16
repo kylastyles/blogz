@@ -1,3 +1,61 @@
 .error {
     color: red;
 }
+
+.bg {
+    background-image: url('../static/images/pexel-lightbulb.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: black;
+}
+
+.box {
+    background-color: rgba(196, 196, 196, 0.603);
+    border-radius: 5px;
+    padding: 0 20px 5px 20px;
+    margin: 10px;
+}
+
+h1 {
+    font-family: 'Sirin Stencil', cursive;
+    text-align: center;
+    font-size: 3em;
+    color: white;
+}
+
+h2 {
+    font-family: 'Sirin Stencil', cursive;
+    color: white;
+}
+
+label {
+    color: white;
+}
+
+textarea {
+    height: 350px;
+    width: 350px;
+}
+
+h3 {
+    font-family: 'Sirin Stencil', cursive;
+}
+
+p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: .75em;
+    color: white;
+}
+
+.header {
+    background-color:
+}
+
+.content {
+    margin-right: 50px;
+}
+
+a {
+    color: orange;
+}
