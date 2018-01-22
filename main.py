@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, render_template, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from hashutils import make_pw_hash, check_pw_hash
 
 app=Flask(__name__)
 app.config['DEBUG'] = True
@@ -14,13 +15,13 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120),unique=True)
-    password = db.Column(db.String(120))
-    blogs = db.relationship('Blog', backref='owner')
+    name = db.Column(db.String(120), unique=True)
+    pw_hash = db.Column(db.String(120), nullable=False)
+    blogs = db.relationship('Blog', backref='user')
 
     def __init__(self, name, password):
         self.name = name
-        self.password = password
+        self.pw_hash = make_pw_hash(password)
 
     def __repr__(self):
         return self.name
@@ -28,14 +29,14 @@ class User(db.Model):
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     pub_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    title = db.Column(db.String(120))
-    body = db.Column(db.Text)
-    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(120), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title, body, owner):
+    def __init__(self, title, body, user):
         self.title = title
         self.body = body
-        self.owner = owner
+        self.user = user
 
     def __repr__(self):
         return self.title
@@ -47,7 +48,7 @@ def verify(name, password1, password2):
     if name == "":
         flash('Please enter a username', 'error')
         return False
-    elif name < 3:
+    elif len(name) < 3:
         flash('Name may not be less than three characters.', 'error')
     elif password1 == "":
         flash('Please enter a password', 'error')
@@ -112,7 +113,7 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(name=name).first()
 
-        if user and user.password == password:
+        if user and check_pw_hash(password, user.pw_hash):
             session['name'] = name
             flash('Logged in', 'info')
             return redirect('/newpost')
@@ -143,7 +144,7 @@ def newpost():
     if request.method == 'POST':
         title = request.form['blog-title']
         body = request.form['blog-body']
-        owner_name = User.query.filter_by(name=session['name']).first()
+        user_name = User.query.filter_by(name=session['name']).first()
 
         if title == "":
             flash('Please enter a title', 'error')
@@ -152,13 +153,13 @@ def newpost():
             flash("Don't forget to write your blog post!", 'error')
             return render_template('newpost.html', title=title)
 
-        new_blog = Blog(title, body, owner_name)
+        new_blog = Blog(title, body, user_name)
         db.session.add(new_blog)
         db.session.flush()
         db.session.commit()
 
         num = new_blog.id
-        return redirect('/blogpost?id={0}&owner={1}'.format(num, owner_name))
+        return redirect('/blogpost?id={0}&user={1}'.format(num, user_name))
 
     return render_template('newpost.html')
 
@@ -167,7 +168,7 @@ def newpost():
 def blogpost():
     '''Created for build-a-blog. Displays individual blog entries as selected by blog.id.'''
     num = request.args.get('id')
-    owner = request.args.get('owner')
+    user = request.args.get('user')
     blog = Blog.query.filter_by(id=num).first()
 
     return render_template('blogpost.html', blog=blog)
@@ -176,9 +177,9 @@ def blogpost():
 def singleUser():
     '''NEW for Blogz. Shows all posts from one user.'''
     id = request.args.get('id')
-    users_posts = Blog.query.filter_by(owner_id=id).all()
-    owner = User.query.filter_by(id=id).first()
-    return render_template('singleUser.html', users_posts=users_posts, owner=owner)
+    users_posts = Blog.query.filter_by(user_id=id).all()
+    user = User.query.filter_by(id=id).first()
+    return render_template('singleUser.html', users_posts=users_posts, user=user)
 
 
 

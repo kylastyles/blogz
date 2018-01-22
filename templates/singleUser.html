@@ -4,9 +4,9 @@
 
 <div class='content'>
     {% if users_posts|length == 0 %}
-    <p>{{owner.name}} has not written any blog posts yet.</p>
+    <p>{{user.name}} has not written any blog posts yet.</p>
     {% else %}
-    <h1>Blogz by {{owner.name}}</h1>
+    <h1>Blogz by {{user.name}}</h1>
         <ul>
             {% for post in users_posts %}
             <li class='box'>
