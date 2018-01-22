@@ -1,23 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class='header'>
-<h1>Build-A-Blog</h1>
-</div>
+<h1>Our Blogz Authors</h1>
 
-<div class='content'>
-{% if blogs|length == 0 %}
-<p>No blogs yet. <a href='/newpost'>Add one!</a></p>
-{% else %}
+<p>Please check out our outstanding list of world-class authors, right here on your computer.</p>
+
+<div class='box content'>
     <ul>
-        {% for blog in blogs %}
-        <li class='box'>
-            <p><a href='/blogpost?id={{blog.id}}'><h3>{{blog.title}}</h3></a></p>
-            <p>{{blog.pub_date}}</p>
-            <p>{{blog.body}}</p>
-        </li>
+        {% for user in users %}
+            <a href='/singleUser?id={{user.id}}'><li>{{ user.name }}</li>
         {% endfor %}
     </ul>
-{% endif %}
 </div>
+
 {% endblock %}

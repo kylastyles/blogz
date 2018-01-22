@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang='en'>
     <head>
-        <title>Build-A-Blog!</title>
+        <title>Blogz</title>
         <link type="text/css" rel="stylesheet" href="/static/styles.css">
         <link href="https://fonts.googleapis.com/css?family=Sirin+Stencil" rel="stylesheet">
         <nav>
-            <a href='/'>Home</a>
-            <a href='/newpost'>New Post</a>
+            <a href='/'><button>Home</button></a>
+            <a href='blog'><button>All Blogz</button></a>
+            {% if not session %}
+            <a href='/login'><button>Log In</button></a>
+            {% endif %}
+            {% if session %}
+            <a href='/newpost'><button>New Post</button></a>
+            <a href='/logout'><button>Log Out</button></a>
+            {% endif %}
         </nav>
     </head>
     <body class='bg'>
