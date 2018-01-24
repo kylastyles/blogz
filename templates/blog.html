@@ -2,23 +2,24 @@
 
 {% block content %}
 <div class='header'>
-<h1>Blogz</h1>
+<h1>All Blogz</h1>
+<h3>Who Will You Inspire Today?</h3>
 </div>
 
 <div class='content'>
 {% if blogs|length == 0 %}
 <p>No blogs yet. <a href='/newpost'>Add one!</a></p>
 {% else %}
-    <ul>
+
         {% for blog in blogs %}
-        <li class='box'>
+        <div class='box'>
             <p><a href='/blogpost?id={{blog.id}}'><h3>{{blog.title}}</h3></a></p>
             <p>{{blog.pub_date}}</p>
             <p>{{blog.body}}</p>
             <h6>Written by <a href='/singleUser?id={{blog.user_id}}'>{{blog.user}}</a></h6>
-        </li>
+        </div>
         {% endfor %}
-    </ul>
+        
 {% endif %}
 </div>
 {% endblock %}

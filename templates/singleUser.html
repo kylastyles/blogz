@@ -2,24 +2,27 @@
 
 {% block content %}
 
+<div class='header'>
+    <h1>Blogz by {{user.name}}</h1>
+    <h3>Who Will You Inspire Today?</h3>
+</div>
+
+
 <div class='content'>
     {% if users_posts|length == 0 %}
     <p>{{user.name}} has not written any blog posts yet.</p>
     {% else %}
-    <h1>Blogz by {{user.name}}</h1>
-        <ul>
+
             {% for post in users_posts %}
-            <li class='box'>
+            <div class='box'>
                 <p><a href='/blogpost?id={{post.id}}'><h3>{{post.title}}</h3></a></p>
                 <p>{{post.pub_date}}</p>
                 <p>{{post.body}}</p>
 
-            </li>
+            </div>
             {% endfor %}
-        </ul>
+
     {% endif %}
     </div>
 
 {% endblock %}
-
-<!-- users_posts -->

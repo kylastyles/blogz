@@ -72,7 +72,7 @@ def verify(name, password1, password2):
 @app.before_request
 def require_login():
     '''Initially created for get-it-done. Edited for Blogz.'''
-    allowed_routes = ['index', 'blog', 'login', 'signup']
+    allowed_routes = ['index', 'blog', 'login', 'signup', 'static']
     if request.endpoint not in allowed_routes and not session:
         return redirect('/login')
 
@@ -130,7 +130,7 @@ def logout():
 def blog():
     '''Created for build-a-blog. Displays previous blog posts.'''
 
-    blogs = Blog.query.all()
+    blogs = Blog.query.order_by('pub_date desc').all()
 
     return render_template('blog.html', blogs=blogs)
 
@@ -180,7 +180,6 @@ def singleUser():
     users_posts = Blog.query.filter_by(user_id=id).all()
     user = User.query.filter_by(id=id).first()
     return render_template('singleUser.html', users_posts=users_posts, user=user)
-
 
 
 if __name__ == "__main__":

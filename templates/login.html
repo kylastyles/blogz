@@ -2,29 +2,23 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="header">
-            <h1>Log in to Blogz</h1>
-        </div>
-
-        <div class="sidebar">
-            <a href='/signup'><button> Create Account </button></a>
-        </div>
-
-        <div class="content">
-            <form action='/login' method='post'>
-                <label for='name'>Name</label>
-                <input name='name' type='name' value='{{ name }}'>
-                <label for='password'>Password</label>
-                <input name='password' type='password'>
-                <input type='submit' value='Login'>
-            </form>
-        </div>
-
-        <div class="footer">
-
-        </div>
-
+    <div class="header">
+        <h1>Log in to Blogz</h1>
     </div>
+
+    <div class="sidebar">
+        <a href='/signup'><button> Create Account </button></a>
+    </div>
+<br>
+    <div class="content">
+        <form action='/login' method='post'>
+            <label for='name'>Name</label>
+            <input name='name' type='name' value='{{ name }}'>
+            <label for='password'>Password</label>
+            <input name='password' type='password'>
+            <button>Login</button>
+        </form>
+    </div>
+
 
 {% endblock %}

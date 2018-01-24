@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Blogz Authors</h1>
 
-<p>Be the Light in the Darkness.</p>
-<div class='box content'>
-    <ul>
-        {% for user in users %}
-            <a href='/singleUser?id={{user.id}}'><li>{{ user.name }}</li>
-        {% endfor %}
-    </ul>
+<div class='header'>
+<h1>Blogz Authors</h1>
+<h3>Who Will Inspire YOU Today?</h3>
 </div>
+
+<div class='center' >
+        {% for user in users %}
+            <h2 class='box'><a href='/singleUser?id={{user.id}}'>{{ user.name }}</a></h3>
+        {% endfor %}
+
+
+    <img src='../static/images/coffee.jpg' class='round' width=75% />
+    </div>
 
 {% endblock %}

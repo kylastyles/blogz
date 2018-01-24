@@ -3,43 +3,29 @@
 }
 
 .bg {
-    background-image: url('../static/images/pexel-lightbulb.jpg');
+    background-image: url('../static/images/pexels-paper.jpeg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    background-color: black;
-}
-
-.box {
-    background-color: rgba(196, 196, 196, 0.603);
-    border-radius: 5px;
-    padding: 0 20px 5px 20px;
-    margin: 10px;
 }
 
 h1 {
-    font-family: 'Sirin Stencil', cursive;
-    text-align: center;
+    font-family: 'Special Elite', cursive;
     font-size: 3em;
-    color: white;
 }
 
 h2 {
-    font-family: 'Sirin Stencil', cursive;
-    color: white;
-}
-
-label {
+    font-family: 'Special Elite', cursive;
     color: white;
 }
 
 textarea {
     height: 350px;
-    width: 350px;
+    width: 600px;
 }
 
 h3 {
-    font-family: 'Sirin Stencil', cursive;
+    font-family: 'Special Elite', cursive;
 }
 
 p {
@@ -49,13 +35,37 @@ p {
 }
 
 .header {
-    background-color:
+    float: center;
+    background-color: white;
+    text-align: center;
 }
 
 .content {
-    margin-right: 50px;
+    float: left;
+    margin: 30px;
 }
 
-a {
-    color: orange;
+.box {
+    background-color: rgba(196, 196, 196, 0.603);
+    border-radius: 5px;
+    padding: 10px 20px 5px 20px;
+    margin: 10px 10px 10px 10px;
+}
+
+.round {
+    border: 5px;
+    border-color: green;
+    border-radius: 25%;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+
+button {
+    box-shadow: 3px 3px 3px darkslategrey;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 1em;
 }

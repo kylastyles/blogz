@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class='header'>
 <h1>New Blogz</h1>
+<h3>Who Will You Inspire Today?</h3>
+</div>
 
+<div class='content'>
 <form method='post'>
     <table>
         <tr>
             <td>
-                <label>Title: <input type='text' name='blog-title' autofocus /></label>
+                <label>Title: <input type='text' name='blog-title' value='Title' autofocus /></label>
             </td>
         </tr>
         <tr>
@@ -21,8 +25,8 @@
             </td>
         </tr>
     </table>
-    <input type='submit' value='Post' />
+    <button>Post</button>
 </form>
-
+</div>
 
 {% endblock %}
