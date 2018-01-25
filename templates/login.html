@@ -3,21 +3,27 @@
 {% block content %}
 
     <div class="header">
-        <h1>Log in to Blogz</h1>
+        <h1>Blogz Log In</h1>
+        <h3>We Read to Know We Are Not Alone*</h3>
     </div>
+    <br>
 
-    <div class="sidebar">
-        <a href='/signup'><button> Create Account </button></a>
-    </div>
-<br>
-    <div class="content">
+    <div class="box center">
+        <h3>Please log in to view more content:</h3>
         <form action='/login' method='post'>
             <label for='name'>Name</label>
             <input name='name' type='name' value='{{ name }}'>
+
             <label for='password'>Password</label>
             <input name='password' type='password'>
-            <button>Login</button>
+            <button>Log In</button>
         </form>
+        <br>
+        <h3>New to Blogz? Sign up here!</h3>
+        <a href='/signup'><button> Create Account </button></a>
+        <br>
+        <br>
+        <p>*Quote by William Nicholson</p>
     </div>
 
 

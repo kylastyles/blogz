@@ -3,10 +3,10 @@
 {% block content %}
 <div class='header'>
 <h1>All Blogz</h1>
-<h3>Who Will You Inspire Today?</h3>
+<h3>Choose Your Words Wisely...</h3>
 </div>
 
-<div class='content'>
+<div class='center'>
 {% if blogs|length == 0 %}
 <p>No blogs yet. <a href='/newpost'>Add one!</a></p>
 {% else %}
@@ -15,8 +15,8 @@
         <div class='box'>
             <p><a href='/blogpost?id={{blog.id}}'><h3>{{blog.title}}</h3></a></p>
             <p>{{blog.pub_date}}</p>
-            <p>{{blog.body}}</p>
-            <h6>Written by <a href='/singleUser?id={{blog.user_id}}'>{{blog.user}}</a></h6>
+            <p>{{blog.body[0:100]}}...</p>
+            <h5>Written by <a href='/singleUser?id={{blog.user_id}}'>{{blog.user}}</a></h5>
         </div>
         {% endfor %}
         

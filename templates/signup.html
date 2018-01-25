@@ -4,6 +4,7 @@
 
     <div class="header">
         <h1>Register with Blogz</h1>
+        <h3>Spread the Word</h3>
     </div>
 
     <div class="sidebar">
@@ -18,7 +19,7 @@
                         <label for='name'>Name</label>
                     </td>
                     <td>
-                        <input name='name' type='name' value='{{ name }}'>
+                        <input name='name' type='name' value='{{ name }}' required>
                     </td>
                 </tr>
                 <tr>
@@ -26,18 +27,18 @@
                         <label for='password'>Password</label>
                     </td>
                     <td>
-                        <input name='password' type='password' value='{{ password }}'>                        </td>
+                        <input name='password' type='password' value='{{ password }}' required>                        </td>
                 </tr>
                 <tr>
                     <td>
                         <label for='verify'>Verify Password</label>
                     </td>
                     <td>
-                        <input name='verify' type='password'>
+                        <input name='verify' type='password' required>
                     </td>
                 </tr>
             </table>
-            <input type='submit' value='Register'>
+            <button>Register</button>
         </form>
     </div>
 
